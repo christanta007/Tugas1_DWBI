@@ -1,0 +1,50 @@
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| tugas1dbwi         |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use tugas1dbwi;
+Database changed
+MariaDB [tugas1dbwi]> create table Customer (
+    -> custNo char(11) not null,
+    -> custName varchar(100) not null,
+    -> address varchar(100) not null,
+    -> Internal varchar(2) not null,
+    -> Contact varchar(100) not null,
+    -> Phone varchar(14) not null,
+    -> City varchar(10) not null,
+    -> state varchar(10) not null,
+    -> zip varchar(10) not null,
+    -> CONSTRAINT CustomerPK PRIMARY KEY(custNo));
+Query OK, 0 rows affected, 1 warning (0.154 sec)
+
+MariaDB [tugas1dbwi]> create table Facility (
+    -> facno char(11) not null,
+    -> facname varchar(100) not null,
+    -> CONSTRAINT FacilityPK PRIMARY KEY(facno));
+Query OK, 0 rows affected, 1 warning (0.030 sec)
+
+MariaDB [tugas1dbwi]> create table Location (
+    -> locno char(20) not null,
+    -> facno char(20) not null,
+    -> locname varchar(100) not null,
+    -> CONSTRAINT LocationPK PRIMARY KEY(locno));
+Query OK, 0 rows affected, 1 warning (0.942 sec)
+
+MariaDB [tugas1dbwi]> alter table Location add CONSTRAINT LocationFK FOREIGN KEY (facno) REFERENCES Facility(facno) on DELETE CASCADE on UPDATE CASCADE;
+Query OK, 0 rows affected (0.495 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [tugas1dbwi]> alter table Facility add UNIQUE (facno);
+Query OK, 0 rows affected (0.514 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [tugas1dbwi]> 
